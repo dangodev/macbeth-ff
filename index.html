@@ -1,0 +1,71 @@
+<!DOCTYPE html> <html lang="en"> <head> <meta charset="utf-8"> <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"> <meta content="SITE DESCRIPTION" name="description"> <meta content="width=device-width, initial-scale=1.0" name="viewport"> <meta content="900" http-equiv="refresh"> <link href="/favicon.ico" rel="icon" type="image/x-icon"> <link href="/apple-touch-icon.png" rel="apple-touch-icon" sizes="180x180"> <title>SITE NAME</title> <style>
+      /* line 3, (__TEMPLATE__) */
+      html, body {
+        font: 500 96px/1 "franklin-gothic-urw", "Helvetica Neue", sans-serif;
+        margin: 0; }
+      
+      /* line 7, (__TEMPLATE__) */
+      ul {
+        list-style: none;
+        margin: 0;
+        padding: 20px; }
+        /* line 11, (__TEMPLATE__) */
+        ul li:first-of-type {
+          background: #f0f0f0;
+          border-radius: 0.25em;
+          margin-bottom: 60px;
+          position: relative;
+          padding: 40px; }
+          /* line 17, (__TEMPLATE__) */
+          ul li:first-of-type::before {
+            content: "Next Up:";
+            color: #999;
+            font-size: 25%;
+            left: 40px;
+            letter-spacing: 0.0625em;
+            position: absolute;
+            text-transform: uppercase;
+            top: 25px; }
+          /* line 26, (__TEMPLATE__) */
+          ul li:first-of-type::after {
+            color: #999;
+            content: "Coming up soon:";
+            font-size: 25%;
+            left: 40px;
+            letter-spacing: 0.0625em;
+            padding-top: 30px;
+            position: absolute;
+            text-transform: uppercase;
+            top: 100%; }
+      
+      /* line 37, (__TEMPLATE__) */
+      li {
+        padding: 20px 40px;
+        position: relative;
+        white-space: nowrap; }
+    </style> <script src="//use.typekit.net/ddk1qyg.js"></script> <script>
+      try{Typekit.load();}catch(e){}
+    </script> </head> <body> <main role="main"> <div id="names"></div> </main> <script>
+      (function() {
+        var container = document.querySelector('#names');
+        var client = new XMLHttpRequest();
+        client.onreadystatechange = function() {
+          container.innerHTML = '<ul></ul>';
+          var names = client.responseText.replace(/^\s*\n/gm, "").split("\n");
+          var n = 0
+          for(n; n < names.length; n++) {
+            if(names[n].length && n < 5)
+              container.querySelector('ul').insertAdjacentHTML('beforeend', '<li>' + names[n] + '</li>');
+          }
+        }
+      
+        var updateList = function() {
+          client.open('GET', 'names.list');
+          client.send();
+        };
+      
+        updateList();
+        setInterval(updateList, 10000);
+      
+      })();
+    </script> </body> </html>
