@@ -60,7 +60,8 @@
         }
       
         var updateList = function() {
-          client.open('GET', 'names.list');
+          var now = Date.now() / 1000 | 0;
+          client.open('GET', 'names.list?t=' + now);
           client.send();
         };
       
